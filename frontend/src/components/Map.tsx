@@ -38,6 +38,23 @@ const Map = () => {
                 fillOpacity: 0.2,
               };
             }}
+            eventHandlers={{
+              mouseover: (e) => {
+                const layer = e.target;
+                layer.setStyle({
+                  fillOpacity: 0.7,
+                });
+              },
+              mouseout: (e) => {
+                const layer = e.target;
+                layer.setStyle({
+                  color: "white",
+                  fillColor: color,
+                  dashArray: "3",
+                  fillOpacity: 0.2,
+                });
+              }
+            }}
           />
         );
       })}
