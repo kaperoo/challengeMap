@@ -1,29 +1,37 @@
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, useMapEvent } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { continents } from "./continents";
 
-const contColors = {
+interface CColors {
+  [key: string]: string;
+}
+
+const contColors: CColors = {
   Asia: "red",
   Europe: "blue",
   Africa: "green",
   "North America": "orange",
   "South America": "yellow",
-  australia: "brown",
+  Australia: "cyan",
   Oceania: "purple",
+  Antarctica: "grey"
 }
 
 const Map = () => {
   return (
     <MapContainer
-      zoom={3}
+      zoom={2}
       center={[51.505, -0.09]}
-      style={{ height: "100vh", width: "100%" }}
+      style={{ height: "90vh", width: "90%" }}
+      minZoom={1.5}
+      maxZoom={3}
+      maxBounds={[[-90, -180], [90, 180]]}
     >
-      <TileLayer
+      {/* <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      /> */}
       {continents.features.map((continent) => {
         const color = contColors[continent.properties.CONTINENT];
         return (
