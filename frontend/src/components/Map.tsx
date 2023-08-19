@@ -15,8 +15,17 @@ const contColors: CColors = {
   "South America": "yellow",
   Australia: "cyan",
   Oceania: "purple",
-  Antarctica: "grey"
-}
+  Antarctica: "grey",
+};
+
+const SetViewOnClick = () => {
+  const map = useMapEvent("click", (e) => {
+    map.setView(e.latlng, map.getZoom(), {
+      animate: true,
+    });
+  });
+  return null;
+};
 
 const Map = () => {
   return (
@@ -26,7 +35,11 @@ const Map = () => {
       style={{ height: "90vh", width: "90%" }}
       minZoom={1.5}
       maxZoom={3}
-      maxBounds={[[-90, -180], [90, 180]]}
+      maxBounds={[
+        [-90, -180],
+        [90, 180],
+      ]}
+      zoomControl={false}
     >
       {/* <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -42,8 +55,9 @@ const Map = () => {
               return {
                 color: "white",
                 fillColor: color,
-                dashArray: "3",
+                // dashArray: "3",
                 fillOpacity: 0.2,
+                weight: 2,
               };
             }}
             eventHandlers={{
@@ -58,15 +72,15 @@ const Map = () => {
                 layer.setStyle({
                   color: "white",
                   fillColor: color,
-                  dashArray: "3",
+                  // dashArray: "3",
                   fillOpacity: 0.2,
                 });
-              }
+              },
             }}
           />
         );
       })}
-      
+      <SetViewOnClick />
     </MapContainer>
   );
 };
