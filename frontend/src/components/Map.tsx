@@ -18,14 +18,7 @@ const contColors: CColors = {
   Antarctica: "grey",
 };
 
-const SetViewOnClick = () => {
-  const map = useMapEvent("click", (e) => {
-    map.setView(e.latlng, map.getZoom(), {
-      animate: true,
-    });
-  });
-  return null;
-};
+
 
 const Map = () => {
   return (
@@ -76,11 +69,18 @@ const Map = () => {
                   fillOpacity: 0.2,
                 });
               },
+              click: (e) => {
+                // zoom on the clicked continent
+                const layer = e.target;
+                const map = layer._map;
+                const bounds = layer.getBounds();
+                map.setMaxZoom(20);
+                map.flyToBounds(bounds);
+              }
             }}
           />
         );
       })}
-      <SetViewOnClick />
     </MapContainer>
   );
 };
